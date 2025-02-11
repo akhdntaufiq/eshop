@@ -22,7 +22,7 @@ public class ProductRepository {
         Product editedProduct = findById(productID);
 
         if (editedProduct != null) {
-            editedProduct.setProductID(product.getProductID());
+            editedProduct.setProductName(product.getProductName());
             editedProduct.setProductQuantity(product.getProductQuantity());
         }
         return editedProduct;
