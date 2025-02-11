@@ -11,14 +11,14 @@ class ProductTest {
     @BeforeEach
     void setup() {
         this.product = new Product();
-        this.product.setProductID("eb558e9f-1c39-460e-8860-71afa6af63bd6");
+        this.product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
         this.product.setProductName("Sampo Cap Bambang");
         this.product.setProductQuantity(100);
     }
 
     @Test
     void testGetProductId() {
-        assertEquals("eb558e9f-1c39-460e-8860-71afa6af63bd6", this.product.getProductID());
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", this.product.getProductID());
     }
 
     @Test
