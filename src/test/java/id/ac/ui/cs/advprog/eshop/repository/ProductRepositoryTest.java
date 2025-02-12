@@ -56,6 +56,22 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void testEditNonExistentProduct() {
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Rudi");
+        updatedProduct.setProductQuantity(200);
+
+        Product editedProduct = productRepository.edit(updatedProduct, "eb557e9f-1c39-460e-8860-71af6af63bd9");
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void testDeleteNonExistentProduct() {
+        productRepository.delete("eb558e9f-1c39-460e-8860-71af6af63bd9");
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+    @Test
     void testDeleteProduct() {
         Product product = new Product();
         product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
