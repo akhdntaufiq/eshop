@@ -20,6 +20,7 @@ class ProductRepositoryTest {
     @BeforeEach
     void setUp() {
     }
+
     @Test
     void testCreateAndFind() {
         Product product = new Product();
@@ -34,6 +35,52 @@ class ProductRepositoryTest {
         assertEquals(product.getProductID(), savedProduct.getProductID());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Edited");
+        updatedProduct.setProductQuantity(200);
+
+        Product editedProduct = productRepository.edit(updatedProduct, product.getProductID());
+        assertEquals("Sampo Cap Edited", editedProduct.getProductName());
+        assertEquals(200, editedProduct.getProductQuantity());
+        assertEquals(product.getProductID(), editedProduct.getProductID());
+    }
+
+    @Test
+    void testDeleteProduct() {
+        Product product = new Product();
+        product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.delete(product.getProductID());
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testFindById() {
+        Product product = new Product();
+        product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById(product.getProductID());
+        assertNotNull(foundProduct);
+        assertEquals(product.getProductID(), foundProduct.getProductID());
+        assertEquals(product.getProductName(), foundProduct.getProductName());
+        assertEquals(product.getProductQuantity(), foundProduct.getProductQuantity());
     }
 
     @Test
@@ -67,5 +114,7 @@ class ProductRepositoryTest {
 
         assertFalse(productIterator.hasNext());
     }
+    
+    
 
 }
