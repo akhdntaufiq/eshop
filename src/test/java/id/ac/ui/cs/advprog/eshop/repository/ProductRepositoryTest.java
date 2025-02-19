@@ -106,6 +106,20 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void testFindByIdOfTwoProducts() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+        Product product2 = new Product();
+        product2.setProductName("Sampo Cap Rudi");
+        product2.setProductQuantity(200);
+        productRepository.create(product2);
+
+        Product result = productRepository.findById(product2.getProductID());
+        assertEquals(product2.getProductID(), result.getProductID());
+    }
+    @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
         product1.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
