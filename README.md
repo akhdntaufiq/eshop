@@ -1,8 +1,9 @@
 # E-Shop🛍️
 ###### Akhdan Taufiq Syofyan - A - 2306152475
 
+### Module 1 - _Coding Standards_
 <details>
-<summary><b>Reflection 1📝</b></summary>
+<summary><b>Reflection 1</b></summary>
 
 > 1. You already implemented two new features using Spring Boot. Check again your source code and evaluate the coding standards that you have learned in this module. Write clean code principles and secure coding practices that have been applied to your code.  If you find any mistake in your source code, please explain how to improve your code.
 
@@ -22,7 +23,7 @@
 </details>
 
 <details>
-<summary><b>Reflection 2📝</b></summary>
+<summary><b>Reflection 2</b></summary>
 
 > 1. After writing the unit test, how do you feel? How many unit tests should be made in a class? How to make sure that our unit tests are enough to verify our program? It would be good if you learned about code coverage. Code coverage is a metric that can help you understand how much of your source is tested. If you have 100% code coverage, does that mean your code has no bugs or errors?
 
@@ -33,4 +34,21 @@ What do you think about the cleanliness of the code of the new functional test s
 
 Membuat functional test class baru dengan setup dan variabel yang sama bukanlah praktik clean code karena mengulang kode yang seharusnya bisa digunakan kembali. Hal Ini melanggar prinsip DRY (Don't Repeat Yourself) dan bisa membuat kode sulit dikelola. Solusinya adalah dengan membuat base test class untuk menyimpan setup umum atau gunakan utility methods agar kode tidak perlu ditulis ulang. Dengan cara ini, kode menjadi lebih rapi, efisien, dan mudah diperbarui jika ada perubahan.
 
+</details>
+
+---
+
+### Module 2 - _Continuous Integration, DevOps_
+<details>
+<summary><b>Reflection</b></summary>
+
+> 1. List the code quality issue(s) that you fixed during the exercise and explain your strategy on fixing them.
+
+Masalah utama yang ditemukan adalah pengujian `findById()` yang belum mencakup kasus ketika terdapat lebih dari satu loop dalam iterasi. Jika produk dengan ID tertentu tidak ditemukan pada iterasi pertama, kode masih bisa melanjutkan pencarian di elemen berikutnya. Namun, ini belum diuji secara menyeluruh, sehingga saya menambahkan test case tambahan untuk memastikan `findById()` dapat menangani skenario tersebut dengan benar.
+
+Selain itu, terdapat penggunaan `public` yang tidak perlu pada metode dalam interface. Dalam Java, metode dalam interface secara default sudah bersifat `public`, sehingga mendeklarasikannya kembali menjadi `public` tidak diperlukan. Saya memperbaikinya dengan menghapus modifier `public` pada metode dalam interface agar lebih sesuai dengan best practice.
+  
+> 2. Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
+
+Proses CI/CD yang saya terapkan telah memenuhi standar Continuous Integration dan Continuous Deployment karena seluruh proses berjalan secara otomatis dari pengujian hingga deployment. Setiap commit atau pull request langsung memicu unit test, analisis kode, serta alat seperti PMD, Scorecard, dan JaCoCo untuk memastikan kualitas kode tetap terjaga. Jika ada kesalahan atau pelanggaran standar, sistem memberikan umpan balik cepat, sehingga perbaikan dapat dilakukan sebelum kode dideploy. Selain itu, pipeline ini juga menangani proses build dan deployment ke Koyeb, memastikan aplikasi selalu dalam kondisi stabil tanpa perlu intervensi manual. Dengan sistem ini, pengembangan menjadi lebih efisien, minim kesalahan, serta memastikan kode yang dirilis selalu dalam kondisi optimal.
 </details>
