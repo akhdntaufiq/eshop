@@ -52,3 +52,52 @@ Selain itu, terdapat penggunaan `public` yang tidak perlu pada metode dalam inte
 
 Proses CI/CD yang saya terapkan telah memenuhi standar Continuous Integration dan Continuous Deployment karena seluruh proses berjalan secara otomatis dari pengujian hingga deployment. Setiap commit atau pull request langsung memicu unit test, analisis kode, serta alat seperti PMD, Scorecard, dan JaCoCo untuk memastikan kualitas kode tetap terjaga. Jika ada kesalahan atau pelanggaran standar, sistem memberikan umpan balik cepat, sehingga perbaikan dapat dilakukan sebelum kode dideploy. Selain itu, pipeline ini juga menangani proses build dan deployment ke Koyeb, memastikan aplikasi selalu dalam kondisi stabil tanpa perlu intervensi manual. Dengan sistem ini, pengembangan menjadi lebih efisien, minim kesalahan, serta memastikan kode yang dirilis selalu dalam kondisi optimal.
 </details>
+
+### Module 3 - _Maintainability & OO Principles_
+<details>
+<summary><b>Reflection</b></summary>
+
+> 1. Explain what principles you apply to your project!
+
+- **Single Responsibility Principle (SRP)**: Setiap kelas hanya memiliki satu tanggung jawab, seperti pemisahan `CarController` dan `ProductController`, yang mencegah satu kelas menangani terlalu banyak tugas sekaligus.
+- **Open/Closed Principle (OCP)**: Kode dapat diperluas tanpa perlu dimodifikasi, seperti penambahan metode baru di `CarServiceImpl` tanpa mengubah `CarService`, menjaga stabilitas sistem.
+- **Liskov Substitution Principle (LSP)**: Subkelas dapat menggantikan superclass tanpa mengubah perilaku yang diharapkan, memastikan objek dari subclass dapat digunakan di tempat objek superclass.
+- **Interface Segregation Principle (ISP)**: `CarService` dan `ProductService` dibuat terpisah agar setiap service hanya memiliki metode yang benar-benar dibutuhkan tanpa harus mengimplementasikan metode yang tidak relevan.
+- **Dependency Inversion Principle (DIP)**: Controller bergantung pada abstraksi (`CarService`) bukan implementasi konkret (`CarServiceImpl`), memungkinkan fleksibilitas dalam perubahan implementasi tanpa mempengaruhi bagian lain dari sistem.
+
+> 2. Explain the advantages of applying SOLID principles to your project with examples.
+
+- **Kode lebih mudah dipelihara**
+
+  Dengan menerapkan SRP, setiap kelas memiliki tanggung jawab yang jelas, sehingga perubahan hanya perlu dilakukan pada bagian yang relevan tanpa memengaruhi bagian lain.
+
+- **Lebih fleksibel untuk dikembangkan**
+
+  Dengan menerapkan OCP, kita bisa menambahkan fitur baru, seperti metode tambahan pada `CarServiceImpl`, tanpa harus mengubah kode yang sudah ada, sehingga mengurangi risiko bug.
+
+- **Mencegah error akibat ketidaksesuaian subclass**
+
+  Dengan mengikuti LSP, setiap subclass bisa digunakan sebagai pengganti superclass tanpa menyebabkan error, misalnya memastikan metode pada `CarServiceImpl` tetap sesuai dengan kontrak yang diberikan oleh `CarService`.
+
+- **Mengurangi beban implementasi yang tidak perlu** 
+
+  Dengan menerapkan ISP, pemisahan `CarService` dan `ProductService` memastikan bahwa setiap kelas hanya mengimplementasikan metode yang memang dibutuhkan, sehingga kode lebih ringan dan tidak membebani sistem.
+
+- **Kode lebih fleksibel dan mudah diuji**
+
+  Dengan mengikuti DIP, controller bergantung pada abstraksi (`CarService`) dan bukan implementasi konkret (`CarServiceImpl`)`, memungkinkan kita mengganti implementasi tanpa mengubah kode di controller, serta mempermudah pengujian menggunakan mock service.
+
+> 3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+     
+  - **Kode menjadi sulit diperbarui**
+    
+    Tanpa SRP, jika `ProductController` menangani logika untuk mobil dan produk lainnya sekaligus, setiap perubahan pada salah satu fitur bisa memengaruhi seluruh controller, membuatnya sulit untuk diperbarui tanpa risiko merusak bagian lain.
+
+  - **Risiko bug lebih tinggi**
+
+    Jika kita tidak menerapkan OCP, menambahkan fitur baru pada `CarServiceImpl` bisa mengharuskan kita mengedit metode yang sudah ada, meningkatkan kemungkinan bug karena perubahan bisa berdampak pada fitur lain yang tidak kita sadari.
+  - **Sulit untuk mengembangkan fitur baru**
+
+    Jika tidak menerapkan DIP, dan `CarController` langsung bergantung pada `CarServiceImpl`, mengganti atau menambahkan implementasi baru (misalnya `HybridCarServiceImpl`) akan memerlukan banyak perubahan pada controller, membuat pengembangan fitur lebih sulit dan rentan error.
+
+</details>
