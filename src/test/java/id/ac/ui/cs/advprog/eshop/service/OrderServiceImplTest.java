@@ -43,6 +43,7 @@ public class OrderServiceImplTest {
         Order order2 = new Order("7f9e15bb-4b15-42f4-aebc-c3af385fb078", products, 1708560000L, "Safira Sudrajat");
         orders.add(order2);
     }
+
     @Test
     void testCreateOrder() {
         Order order = orders.get(1);
