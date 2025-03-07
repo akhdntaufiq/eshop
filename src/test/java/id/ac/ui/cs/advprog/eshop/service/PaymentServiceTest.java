@@ -1,3 +1,4 @@
+
 package id.ac.ui.cs.advprog.eshop.service;
 
 import java.util.*;
@@ -119,7 +120,7 @@ class PaymentServiceTest {
 
     @Test
     void testSetStatusRejected() {
-        Payment payment = new Payment("a5e93216-127c-43df-b7f1-89b720e496bb","VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"), order);
+        Payment payment = new Payment("a5e93216-127c-43df-b7f1-89b720e496bb","VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"), order1);
 
         when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> invocation.getArgument(0));
         payment = paymentService.setStatus(payment, "REJECTED");
@@ -129,10 +130,9 @@ class PaymentServiceTest {
 
     @Test
     void testSetInvalidStatus() {
-        when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> invocation.getArgument(0));
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("a5e93216-127c-43df-b7f1-89b720e496bb","VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"), order);
-            payment = paymentService.setStatus(payment, "KELAR");
+            Payment payment = new Payment("a5e93216-127c-43df-b7f1-89b720e496bb","VOUCHER", Map.of("voucherCode", "ESHOP1234ABC5678"), order1);
+            paymentService.setStatus(payment, "KELAR");
         });
     }
 
@@ -141,7 +141,7 @@ class PaymentServiceTest {
         Payment payment = payments.get(1);
         when(paymentRepository.findById(payment.getId())).thenReturn(payment);
 
-        Payment result = paymentService.findById(payment.getId());
+        Payment result = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), result.getId());
     }
 
@@ -149,11 +149,14 @@ class PaymentServiceTest {
     void testGetAllPayments() {
         when(paymentRepository.findAll()).thenReturn(payments.iterator());
 
-        List<Payment> result = paymentService.getAllPayments();
+        Iterator<Payment> result = paymentService.getAllPayments();
 
-        assertEquals(payments.size(), result.size());
-        assertEquals(payments.get(0).getId(), result.get(0).getId());
-        assertEquals(payments.get(1).getId(), result.get(1).getId());
+        List<Payment> resultList = new ArrayList<>();
+        result.forEachRemaining(resultList::add);
+
+        assertEquals(payments.size(), resultList.size());
+        assertEquals(payments.get(0).getId(), resultList.get(0).getId());
+        assertEquals(payments.get(1).getId(), resultList.get(1).getId());
 
         verify(paymentRepository, times(1)).findAll();
     }
