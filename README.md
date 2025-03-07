@@ -53,6 +53,8 @@ Selain itu, terdapat penggunaan `public` yang tidak perlu pada metode dalam inte
 Proses CI/CD yang saya terapkan telah memenuhi standar Continuous Integration dan Continuous Deployment karena seluruh proses berjalan secara otomatis dari pengujian hingga deployment. Setiap commit atau pull request langsung memicu unit test, analisis kode, serta alat seperti PMD, Scorecard, dan JaCoCo untuk memastikan kualitas kode tetap terjaga. Jika ada kesalahan atau pelanggaran standar, sistem memberikan umpan balik cepat, sehingga perbaikan dapat dilakukan sebelum kode dideploy. Selain itu, pipeline ini juga menangani proses build dan deployment ke Koyeb, memastikan aplikasi selalu dalam kondisi stabil tanpa perlu intervensi manual. Dengan sistem ini, pengembangan menjadi lebih efisien, minim kesalahan, serta memastikan kode yang dirilis selalu dalam kondisi optimal.
 </details>
 
+---
+
 ### Module 3 - _Maintainability & OO Principles_
 <details>
 <summary><b>Reflection</b></summary>
@@ -99,5 +101,38 @@ Proses CI/CD yang saya terapkan telah memenuhi standar Continuous Integration da
   - **Sulit untuk mengembangkan fitur baru**
 
     Jika tidak menerapkan DIP, dan `CarController` langsung bergantung pada `CarServiceImpl`, mengganti atau menambahkan implementasi baru (misalnya `HybridCarServiceImpl`) akan memerlukan banyak perubahan pada controller, membuat pengembangan fitur lebih sulit dan rentan error.
+
+</details>
+
+---
+
+### Module 4 - _Refactoring and TDD_
+<details>
+<summary><b>Reflection 1</b></summary>
+
+> Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+TDD flow yang saya lakukan cukup berguna dalam memastikan Order model dan komponennya diuji sebelum diimplementasikan. Namun, ada beberapa hal yang bisa diperbaiki:
+
+- Lebih banyak edge case testing, terutama pada validasi status dan daftar produk kosong.
+- Peningkatan modularitas dengan memisahkan beberapa pengujian menjadi metode yang lebih spesifik.
+- Refaktor lebih awal untuk menghindari banyak perubahan mendadak di tahap akhir.
+
+</details>
+
+<details>
+<summary><b>Reflection 2</b></summary>
+
+> You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+Sebagian besar pengujian saya mengikuti prinsip F.I.R.S.T., namun ada beberapa perbaikan yang perlu dilakukan:
+
+- Fast: Pengujian berjalan cukup cepat, tetapi bisa ditingkatkan dengan lebih sedikit dependensi.
+- Independent: Sebagian besar pengujian tidak bergantung satu sama lain, namun bisa diperiksa kembali untuk mengurangi ketergantungan implisit.
+- Repeatable: Pengujian berjalan secara konsisten, tetapi perlu memastikan tidak ada ketergantungan pada lingkungan tertentu.
+- Self-validating: Sudah memastikan hasil pengujian jelas dengan assert yang kuat.
+- Timely: Pengujian dibuat sebelum implementasi sesuai TDD.
+
+Ke depan, saya akan lebih memperhatikan modularitas dan edge case testing agar pengujian lebih efektif.
 
 </details>
